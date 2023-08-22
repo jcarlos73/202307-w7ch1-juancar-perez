@@ -10,9 +10,18 @@ export const getThings = (_req: Request, res: Response) => {
 export const getThing = (req: Request, res: Response) => {
   console.log("Request getThing to get one thing");
 
-  const { idThing } = req.params;
+  const { id } = req.params;
 
-  res
-    .status(200)
-    .json({ thing: things.find((thing) => thing.id === Number(idThing)) });
+  const thinById = things.find((thing) => thing.id === +id);
+
+  res.status(200).json({ thing: thinById });
+};
+
+export const deleteThingController = (req: Request, res: Response) => {
+  const { id } = req.params;
+
+  const thingToDeletePosition = things.findIndex((thing) => thing.id === +id);
+  things.splice(thingToDeletePosition, 1);
+
+  res.status(200).json({ message: "Thing Deleted" });
 };
