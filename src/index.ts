@@ -1,3 +1,19 @@
+import chalk from "chalk";
+import debug from "debug";
+import "dotenv/config.js";
+import connectToDatabase from "./database/connectToDatabase.js";
 import startServer from "./server/startServer.js";
 
-startServer();
+const port = process.env.PORT ?? 4000;
+
+const mongoDbUrl = process.env.MONGODB_URL;
+
+try {
+  await connectToDatabase(mongoDbUrl!);
+  debug(chalk.green("Connected to database"));
+  startServer(+port);
+} catch (error: unknown) {
+  debug(chalk.red("Error connecting to database"));
+  debug(chalk.red((error as Error).message));
+  process.exit(1);
+}

@@ -1,14 +1,12 @@
-import chalk from "chalk";
+import debugCreator from "debug";
 import "dotenv/config.js";
 import app from "./index.js";
 
-const startServer = () => {
-  const port = 4000;
+const debug = debugCreator("things:server:start");
 
-  app.listen(port, () => {
-    console.log(
-      chalk.blue(`Listening on ${chalk.bold(`http://localhost:${port}`)}`)
-    );
+const startServer = (port: string | number) => {
+  app.listen(+port, () => {
+    debug(`Listening on http://localhost:${port}/things`);
   });
 };
 
