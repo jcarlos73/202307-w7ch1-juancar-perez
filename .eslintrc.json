@@ -23,6 +23,12 @@
         ],
         "no-implicit-coercion": "off"
       }
+    },
+    {
+      "files": ["**/models/**/*.ts"],
+      "rules": {
+        "@typescript-eslint/naming-convention": "off"
+      }
     }
   ],
   "parserOptions": {
